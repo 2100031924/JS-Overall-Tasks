@@ -1,0 +1,276 @@
+Topic: JavaScript Variables (var, let, const)
+Submission Date: Tomorrow
+Instructions:
+• Answer all questions clearly
+• Mention reason for error-based questions
+• Write clean and readable code
+
+
+
+
+SECTION A: Technical Questions
+
+
+1) What is the difference between var, let, and const?
+ Ans: var: The "old" way. It is function-scoped, meaning it ignores blocks like if or for. It
+can be redeclared and updated anywhere.
+let: The "modern" way for variables that will change. it is block-scoped (lives only inside { }).
+const: Short for "constant." It is block-scoped and cannot be changed once set.
+
+
+2) Which keyword allows redeclaration and why?
+Ans: The keyword that allows redeclaration is var.
+Reason why?
+The var keyword allows redeclaration because it is Function Scoped. In the original design
+of JavaScript, if declared the same variable twice using var within the same scope, the
+JavaScript engine would not throw an error
+Example:
+var username = "Alice";
+var username = "Bob";
+console.log(username);
+Example 2: Error Code
+let price = 50;
+let price = 100;
+Reason for Error: Modern JavaScript keywords (let and const) are Block Scoped. They
+strictly forbid redeclaration in the same scope to help developers avoid accidental bugs
+and keep the code predictable.
+
+
+
+
+3)Which keyword allows reinitialization?
+Ans: In JavaScript, the keywords that allow reinitialization are var and let.
+Reason:
+These keywords are designed for variables whose values are expected to change during the
+execution of a program .
+var and let create "mutable" references.
+The JavaScript engine allocates memory that can be updated with a new value at any time.
+Example:
+// Using let (Modern Best Practice)
+let score = 10;
+score = 20;
+// Reassigned/Reinitialized successfully
+console.log(score);
+// Output: 20
+// Using var
+var status = "Pending";
+status = "Completed";
+// Reassigned successfully
+console.log(status);
+// Output: Completed
+Reason for Error: The const keyword creates a read-only reference. Once a value is
+assigned to a const variable, the JavaScript engine locks that memory location, preventing
+any further changes to ensure data integrity.
+
+
+
+
+
+4) Which keyword does not allow redeclaration and reinitialization?
+Ans: The keyword that does not allow both redeclaration and reinitialization is const
+Example:
+const category = "Books";
+category = "Music";
+
+
+
+
+5) Why should const be used for fixed values?
+Ans: Safety: It prevents accidental changes to important data
+ Readability: It tells other programmers that this value will never change.
+Example:
+const PI = 3.14;
+
+
+
+
+
+
+6) What error occurs when redeclaring a let variable?
+Ans: SyntaxError: Identifier 'variable_name' has already been declared.
+Reason: let is block-scoped and does not allow you to use the same name for a different
+variable in the same block. This prevents accidental overwriting of data.
+Example:
+let user = "John";
+let user = "Alex";
+
+
+
+
+
+
+7) What error occurs when reassigning a const variable?
+Ans: TypeError: Assignment to constant variable
+Reason: const creates a read-only reference.
+Example:
+const speedLimit = 60;
+speedLimit = 80;
+
+
+
+
+
+8) Which keyword is preferred in modern JavaScript and why?
+Ans: const is the most preferred, followed by let
+Reason: Safety: They prevent bugs caused by variable "leaks".
+Predictability: Using const by default makes it clear which values stay the same, making
+the code easier to read and debug.
+
+
+
+
+
+9) Can const be declared without initialization? Explain
+Ans: No
+Reason: A const variable must be assigned a value at the exact moment it is declared.
+Since its value cannot be changed later, declaring it empty would be useless.
+Example:
+const gravity;
+
+
+
+
+
+
+10) When should var be avoided?
+Ans: var should be avoided in all modern JavaScript projects
+Reason: Scope Issues: var does not respect blocks , which can lead to variables "leaking"
+out and causing bugs.
+Hoisting Confusion: It initializes as undefined if called early, which can lead to silent errors
+that are hard to find compared to the clear errors given by let and const.
+
+
+
+
+
+
+
+SECTION B: Code-Based Questions
+
+
+
+11) Predict the output:
+var a = 10;
+a = 20;
+var a = 30;
+console.log(a);
+Output: 30
+Simple Explanation:
+var a = 10; declares a variable a and sets it to 10
+a = 20; updates (reassigns) the value of a to 20.
+var a = 30; redeclares the variable a. Since var allows redeclaration, it simply overwrites the
+previous value with 30.
+console.log(a); prints the most recent value assigned to a, which is 30.
+
+
+
+
+
+
+12) Predict the output:
+let b = 5;
+b = 15;
+console.log(b);
+Ans: Output 15
+Simple Explanation:
+let b = 5; initializes the variable b with a value of 5.
+b = 15; reassigns the value of b to 15. Since let allows reassignment, this is a valid
+operation.
+console.log(b); prints the current value of b, which is now 15.
+
+
+
+
+
+13) Identify the error:
+let x = 10;
+let x = 20;
+Ans: SyntaxError: Identifier 'x' has already been declared
+Reason: The error occurs because you are trying to redeclare the variable x using the let
+keyword in the same scope.
+Correct One:
+let x = 10;
+x = 20;
+console.log(x);
+
+
+
+
+
+
+
+14) Identify the error:
+const y = 50;
+y = 100;
+Ans: TypeError: Assignment to constant variable
+Correct one:
+let y = 50;
+y = 100;
+console.log(y);
+
+
+
+
+
+
+15) Write a program using var to show redeclaration.
+Ans: var city = "New York";
+var city = "Los Angeles";
+// Redeclaring the same variable name
+console.log(city);
+
+
+
+
+
+
+16) Write a program using let to show reinitialization.
+Ans: let score = 50;
+score = 100;
+// Changing the value
+console.log(score);
+
+
+
+
+
+
+17) Write a program using const and explain why value cannot change.
+Ans: const birthYear = 1995;
+// birthYear = 2000;
+// This would cause a TypeError
+console.log(birthYear);
+Reason: The value cannot change because const creates a read-only reference.
+
+
+
+
+
+
+18) Convert var to let where applicable.
+Ans: A loop counter or a value that changes.
+Before (var): var counter = 1;
+After (let): let counter = 1;
+
+
+
+
+
+19) Convert var to const where applicable.
+Ans: A fixed value like a mathematical constant.
+Before (var): var pi = 3.14;
+After (const): const PI = 3.14;
+
+
+
+
+
+20) Write your own example for var, let, and const.
+Ans: // var
+var trainer = "John";
+// let
+currentStep = 5;
+currentStep = 6;
+// const
+const API_KEY = "ABC123XYZ";
+console.log(trainer, currentStep, API_KEY);
