@@ -1,0 +1,280 @@
+INTERMEDIATE LEVEL - FUNCTIONS FULL
+ASSIGNMENT
+
+SECTION 1 – Real-Time Function Logic
+
+
+1. Payroll System:
+Create calculateSalary(basicSalary, bonusPercentage)
+- Calculate bonus
+- Deduct 5% tax
+- Return final salary
+- Print full salary breakdown
+
+Ans:
+function calculateSalary(basicSalary, bonusPercentage) {
+    const bonus = basicSalary * (bonusPercentage / 100);
+    const grossSalary = basicSalary + bonus;
+    const tax = grossSalary * 0.05;
+    const finalSalary = grossSalary - tax;
+
+    console.log(`--- Salary Breakdown ---`);
+    console.log(`Basic: ${basicSalary} | Bonus: ${bonus} | Tax (5%): ${tax}`);
+    
+    return finalSalary;
+}
+
+
+
+2. Student Result System:
+Create generateResult(name, marksArray)
+- Calculate total
+- Calculate average
+- Decide Grade (A/B/C/Fail)
+- Return result object
+
+Ans:
+function generateResult(name, marksArray) {
+    const total = marksArray.reduce((acc, curr) => acc + curr, 0);
+    const average = total / marksArray.length;
+    let grade = "Fail";
+
+    if (average >= 90) grade = "A";
+    else if (average >= 75) grade = "B";
+    else if (average >= 50) grade = "C";
+
+    return { name, total, average, grade };
+}
+
+
+
+
+SECTION 2 – Scope & Hoisting (Debugging)
+
+3. Debug This Code:
+function demo(){
+if(true){
+var a = 10;
+let b = 20;
+}
+console.log(a);
+console.log(b);
+}
+Questions:
+- What will happen?
+
+- Why?
+- Fix it properly.
+
+Ans:
+What will happen? 
+When you run demo(), the first console.log(a) will print 10, but the second console.log(b) will throw a ReferenceError: b is not defined and stop the execution.
+
+Why?
+var is Function-Scoped: Variables declared with var are accessible anywhere within the function they are defined in, even if they are inside an if block or a loop.
+let is Block-Scoped: Variables declared with let (and const) only exist within the specific curly braces {} where they are defined. Once the code execution leaves the if block, b is "garbage collected" and no longer exists.
+
+correct code:
+function demo() {
+    if (true) {
+        const a = 10;
+        const b = 20;
+        console.log(a); // 10
+        console.log(b); // 20
+    }
+}
+
+Declare variables outside the block
+
+function demo() {
+    let a;
+    let b;
+
+    if (true) {
+        a = 10;
+        b = 20;
+    }
+
+    console.log(a); // 10
+    console.log(b); // 20
+}
+
+
+
+
+4. Hoisting Analysis:
+console.log(x);
+var x = 100;
+console.log(y);
+let y = 200;
+Predict output and explain.
+
+Ans:
+Predicted Output:
+
+console.log(x); → undefined
+
+var x = 100;
+
+console.log(y); → ReferenceError: Cannot access 'y' before initialization
+
+Detailed Explanation:
+1. The var Behavior (Hoisting with Initialization)
+
+When the JavaScript engine parses the code, it "hoists" the declaration of x to the top and initializes it with undefined.
+
+var x;           // Declaration is hoisted and initialized
+console.log(x);  // x exists, but has no value yet
+x = 100;         // Assignment happens here
+
+
+
+SECTION 3 – Callback & Higher Order (Industry Simulation)
+
+5. Order Processing System:
+Create processOrder(orderId, callback)
+- Print "Order Processed"
+- Call generateInvoice(orderId)
+
+Ans:
+const generateInvoice = (id) => console.log(`Invoice generated for: ${id}`);
+
+function processOrder(orderId, callback) {
+    console.log(`Order ${orderId} Processed`);
+    callback(orderId);
+}
+// Usage: processOrder("ORD123", generateInvoice);
+
+
+6. Bank Transaction System:
+Create transaction(amount, type, callback)
+- If deposit → add
+- If withdraw → subtract
+- Call sendSMS()
+
+Ans:
+const sendSMS = (msg) => console.log(`SMS: ${msg}`);
+
+function transaction(amount, type, currentBalance, callback) {
+    let newBalance = type === 'deposit' ? currentBalance + amount : currentBalance - amount;
+    callback(`Transaction of ${amount} ${type} successful. New Balance: ${newBalance}`);
+}
+
+
+
+
+SECTION 4 – Currying (E-Commerce)
+7. Dynamic Price Builder:
+Create priceBuilder(basePrice)(discount)(tax)
+Return final price
+Example: priceBuilder(2000)(15)(18)
+
+Ans:
+const priceBuilder = (basePrice) => (discount) => (tax) => {
+    const discounted = basePrice - (basePrice * (discount / 100));
+    return discounted + (discounted * (tax / 100));
+};
+// Result: priceBuilder(2000)(15)(18) = 2006
+
+
+
+
+
+SECTION 5 – IIFE (Security + Encapsulation)
+8. Secure Company Module:
+
+- Store private variable companyCode
+- Expose getCompanyStatus()
+- companyCode should not be directly accessible
+
+Ans:
+const companyModule = (function() {
+    let companyCode = "SECRET_99"; // Private variable
+    
+    return {
+        getCompanyStatus: function() {
+            return `System Online. Code: ${companyCode}`;
+        }
+    };
+})();
+
+
+
+SECTION 6 – Generator (Advanced Logic)
+9. Unique Order ID Generator:
+Generate ORD1001, ORD1002, ORD1003, etc.
+
+Ans:
+function* orderIdGenerator() {
+    let id = 1001;
+    while(true) yield `ORD${id++}`;
+}
+
+
+10. Coupon Spin System:
+Yield:
+- 10% OFF
+- 20% OFF
+- 50% OFF
+- No Luck
+- Jackpot
+Simulate multiple spins.
+
+Ans:
+function* couponSpin() {
+    const prizes = ["10% OFF", "20% OFF", "50% OFF", "No Luck", "Jackpot"];
+    for (let prize of prizes) yield prize;
+}
+
+
+
+
+SECTION 7 – Mini Project (Integrated)
+Mini E-Commerce Flow:
+- addToCart(product, price)
+- calculateTotal()
+- applyDiscount() using currying
+- generateCoupon() using generator
+- processPayment() using callback
+- Hide config using IIFE
+
+Ans:
+
+const cart = [];
+const addToCart = (p, pr) => cart.push({product: p, price: pr});
+const calculateTotal = () => cart.reduce((sum, item) => sum + item.price, 0);
+
+
+
+Concept Questions:
+
+1. Difference between function declaration & expression?
+Ans:
+Declarations are hoisted (can be called before they are defined); expressions are not.
+
+2. What is higher order function?
+Ans:
+A function that takes another function as an argument or returns a function.
+
+
+3. Real-time example of generator?
+Ans:
+Handling infinite scrolling in a web app or managing large data streams without loading everything into memory.
+
+
+4. Why do we use IIFE?
+Ans:
+To avoid polluting the global namespace and to create private scope for variables.
+
+
+
+5. Difference between var, let, const?
+Ans:
+var is function-scoped; let and const are block-scoped. const cannot be reassigned.
+
+
+
+
+
+
+
