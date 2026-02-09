@@ -9,7 +9,7 @@ Create calculateSalary(basicSalary, bonusPercentage)
 - Calculate bonus
 - Deduct 5% tax
 - Return final salary
-- Print full salary breakdown
+- Print full salary Breakdown
 
 Ans:
 function calculateSalary(basicSalary, bonusPercentage) {
