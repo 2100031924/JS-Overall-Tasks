@@ -1,0 +1,228 @@
+JavaScript Practice Tasks
+
+
+SECTION 1 – Date Object Tasks
+
+
+TASK 1 – Custom Digital Clock
+Create a live digital clock using:
+- new Date()
+- getHours()
+- getMinutes()
+- getSeconds()
+- setInterval()
+Format:
+Current Time: 14 : 05 : 09
+(Add leading zero if value < 10)
+
+Ans:
+
+setInterval(() => {
+    let d = new Date();
+    let h = d.getHours();
+    let m = d.getMinutes();
+    let s = d.getSeconds();
+
+    // Adding leading zero
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = "0" + m;
+    if (s < 10) s = "0" + s;
+
+    console.log(`Current Time: ${h} : ${m} : ${s}`);
+}, 1000);
+
+
+
+
+
+TASK 2 – Find Current Day Name
+Use getDay()
+Array:
+["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+Print:
+Today is Friday
+
+Ans:
+let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+let d = new Date();
+let dayIndex = d.getDay(); 
+
+console.log("Today is " + days[dayIndex]);
+
+
+
+
+
+
+TASK 3 – Age Calculator (Basic)
+let birthYear = 2003
+Use getFullYear()
+Print:
+Your age is 23
+
+Ans:
+let birthYear = 2003;
+let currentYear = new Date().getFullYear();
+let age = currentYear - birthYear;
+
+console.log("Your age is " + age);
+
+
+
+
+
+TASK 4 – Create Specific Date
+Create:
+15 August 2020
+10:30:45 AM
+Using:
+- new Date()
+- setFullYear()
+- setMonth()
+- setDate()
+- setHours()
+- setMinutes()
+- setSeconds()
+Print using:
+toLocaleString()
+
+Ans:
+let myDate = new Date();
+myDate.setFullYear(2020);
+myDate.setMonth(7); // 7 is August
+myDate.setDate(15);
+myDate.setHours(10);
+myDate.setMinutes(30);
+myDate.setSeconds(45);
+
+console.log(myDate.toLocaleString());
+
+
+
+
+
+SECTION 2 – setTimeout & setInterval
+TASK 5 – Delayed Message
+Use setTimeout()
+After 3 seconds print:
+Welcome Naveen 
+
+Ans:
+setTimeout(() => {
+    console.log("Welcome Naveen");
+}, 3000);
+
+
+
+
+
+TASK 6 – Stop Interval After 5 Seconds
+Output:
+1
+2
+3
+4
+5
+Stopped
+Use:
+- setInterval()
+- clearInterval()
+
+Ans:
+let count = 1;
+let stop = setInterval(() => {
+    console.log(count);
+    if (count == 5) {
+        clearInterval(stop);
+        console.log("Stopped");
+    }
+    count++;
+}, 1000);
+
+
+
+
+
+
+SECTION 3 – Promise Practice
+TASK 7 – Simple Promise
+If number > 10 → resolve("Valid number")
+Else → reject("Invalid number")
+Handle using:
+.then()
+.catch()
+.finally()
+
+
+Ans:
+let p = new Promise((res, rej) => {
+    let num = 15;
+    if (num > 10) {
+        res("Valid number");
+    } else {
+        rej("Invalid number");
+    }
+});
+
+p.then((msg) => console.log(msg))
+ .catch((err) => console.log(err))
+ .finally(() => console.log("Done"));
+
+
+
+
+
+
+ SECTION 4 – Fetch API Task
+TASK 8 – Fetch Product Prices
+API:
+https://fakestoreapi.com/products
+Print only:
+Product: <title>
+Price: <price>
+-----------------
+
+
+Ans:
+fetch("https://fakestoreapi.com/products")
+.then((res) => res.json())
+.then((data) => {
+    data.forEach((item) => {
+        console.log("Product: " + item.title);
+        console.log("Price: " + item.price);
+        console.log("-----------------");
+    });
+});
+
+
+
+
+
+
+
+SECTION 5 – Execution Order Task
+function one(){
+ console.log("one");
+}
+function two(){
+ console.log("two");
+}
+function three(){
+ console.log("three");
+}
+one()
+setTimeout(two,0)
+three()
+Predict Output and Explain Why.
+
+Ans:
+Output:
+one
+
+three
+
+two
+
+Explanation:
+
+JavaScript is Synchronous first. one() and three() run immediately on the main stack. setTimeout (even at 0ms) is Asynchronous, so it moves to a "waiting area" (Task Queue) and only runs after the main code is completely finished.
